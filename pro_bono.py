@@ -101,7 +101,7 @@ from keras import Model
 
 def compiled_LSTM_func(X, y):
     
-    input_layer = Input(X.shape[1:])
+    input_layer = Input(np.shape(X)[1:])
 
     x = LSTM(
         units = 1,
@@ -116,5 +116,5 @@ def compiled_LSTM_func(X, y):
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.1), loss=keras.losses.BinaryCrossentropy())
     model.summary()
     model.fit(X=X, y=y)
-
+    model.save('./Model')
     return model.predict
