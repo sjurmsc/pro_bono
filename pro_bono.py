@@ -35,6 +35,17 @@ def convert_crs_for_csv_in_dir():
         table.to_csv(filename, sep=';', index=False)
 
 
+def split_pdf(fp, start, stop):
+    """Takes a pdf file and strips away pages from start to stop."""
+    from pypdf2 import PdfFileReader, PdfFileWriter
+    pdf = PdfFileReader(fp)
+    writer = PdfFileWriter()
+    for i in range(start, stop):
+        writer.addPage(pdf.getPage(i))
+    with open(fp, 'wb') as f:
+        writer.write(f)
+    
+
 import numpy as np
 from scipy.interpolate import interp1d
 def depth_to_time(ai, z, v, t0 = 0., dt=1e-3, mode='ceil'):
